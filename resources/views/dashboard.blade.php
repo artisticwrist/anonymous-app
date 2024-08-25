@@ -9,7 +9,38 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+
+                    <!-- Display Success Message -->
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    <!-- Button to create a new message -->
+                    <form action="{{ route('verify-refferal') }}" method="GET">
+                        <input type="hidden" name="uid" value="{{ Auth::id() }}">
+                        <button type="submit">Create Message</button>
+                    </form>
+
+                    <!-- Display Error/Other Message -->
+                    @if(session('message'))
+                        <p>{{ session('message') }}</p>
+                    @endif
+                
+                    @if($messages->isNotEmpty())
+                        <h2>Your Messages:</h2>
+                        <ul>
+                            @foreach($messages as $message)
+                                <li>
+                                    {{ $message->message }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p>No messages found.</p>
+                    @endif
+
                 </div>
             </div>
         </div>

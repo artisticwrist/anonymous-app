@@ -15,9 +15,9 @@ class Message extends Model
         'message',
     ];
 
-    public function receiver(): BelongsTo
+    public function user()
     {
-        return $this->belongsTo(User::class, 'receiver_id');
+        return $this->belongsTo(User::class, 'receiver_id'); // 'receiver_id' is the foreign key in the messages table
     }
 
 }

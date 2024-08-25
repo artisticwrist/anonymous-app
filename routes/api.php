@@ -8,33 +8,22 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 
-
-
+// Publicly accessible routes
 Route::post('/feedback', [FeedbackController::class, 'sendFeedback'])->name('feedback.send');
 Route::get('/view_comments/{id}', [CommentController::class, 'viewComments'])->name('comment.view');
-
-
+Route::post('/create-message', [MessageController::class, 'create_message'])->name('create-message');
 
 // Protected Routes (requires auth via Sanctum)
-Route::group(['middleware' => ['auth:sanctum']], function () {
-
-    // TESTED ROUTES
-    Route::post('/messages', [MessageController::class, 'send_message'])->name('send_message.send');
-    Route::get('/user/{id}/messages', [UserController::class, 'view_user_message'])->name('user.messages.view');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user/messages', [UserController::class, 'view_user_message'])->name('api.user.messages');
     Route::delete('/messages/{id}', [MessageController::class, 'delete_message'])->name('messages.delete');
-
+    
     // Comment routes
     Route::post('/post_comment', [CommentController::class, 'postComment'])->name('comment.post');
-
-    
-
-
     
     // Admin routes
     Route::get('/view_all_users', [AdminController::class, 'view_all_users'])->name('admin.users.view');
     Route::get('/search_user/{id}', [AdminController::class, 'search_user'])->name('admin.user.search');
     Route::delete('/delete_user/{id}', [AdminController::class, 'delete_user'])->name('admin.user.delete');
+    Route::get('/view_all_messages', [AdminController::class, 'view_all_messages'])->name('admin.messages.view');
 });
-
-// Publicly accessible admin route
-Route::get('/view_all_messages', [AdminController::class, 'view_all_messages'])->name('admin.messages.view');
