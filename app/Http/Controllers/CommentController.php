@@ -41,16 +41,23 @@ class CommentController extends Controller
 
     }
 
-    public function viewComments(Request $request, string $id){
+    public function viewComments(Request $request, string $id)
+    {
+        // Find the message by ID
         $message = Message::find($id);
-
-        if(!$message){
-            return response()->json('Message doesnt exist', 201);
+    
+        // Check if the message exists
+        if (!$message) {
+            return response()->json('Message doesn\'t exist', 404);
         }
-
-        $view = Comments::where('message_id', $id)->exists();
-
-        return $view::all();
-
+    
+        // Fetch all comments associated with the message
+        $comments = Comments::where('message_id', $id)->get();
+    
+        // Return the comments as a JSON response
+        return response()->json([
+            'message' => 'successful',
+            'comments' => $comments
+        ], 200);
     }
-}
+}    

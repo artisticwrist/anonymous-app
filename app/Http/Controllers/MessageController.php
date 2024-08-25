@@ -8,13 +8,6 @@ use App\Models\User;
 
 class MessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function view_user_message()
-    {
-        return Message::all();
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -27,14 +20,16 @@ class MessageController extends Controller
      */
     public function send_message(Request $request)
     {
+
+    
         $fields = $request->validate([
             'sender_id'=>'required',
-            'reciever_id'=>'required',
+            'receiver_id'=>'required',
             'message'=>'required',
         ]);
 
 
-        if(!User::where('id', $fields['reciever_id'])->exists()){
+        if(!User::where('id', $fields['receiver_id'])->exists()){
             return response()->json([
                 'message' => 'User doesnt exist'
             ]);

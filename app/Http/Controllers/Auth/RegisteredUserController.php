@@ -70,7 +70,7 @@ class RegisteredUserController extends Controller
         $referralCode = Str::slug($name) . Str::random(5);
         
         // Check if the referral code already exists
-        while (User::where('referral_code', $referralCode)->exists()) {
+        while (User::where('refferal_link', $referralCode)->exists()) {
             $referralCode = Str::slug($name) . Str::random(5);
         }
 
