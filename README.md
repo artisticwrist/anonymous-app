@@ -1,7 +1,3 @@
-Here’s the updated README file with the correct repository URL:
-
----
-
 # Anonymous Application
 
 ## Introduction
