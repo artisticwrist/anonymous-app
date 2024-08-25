@@ -1,8 +1,12 @@
+Here’s the updated README file with the correct repository URL:
+
+---
+
 # Anonymous Application
 
 ## Introduction
 
-Welcome to the Anonymous Application! This Laravel-based application is currently under development. Here is a detailed look at the features implemented so far, setup instructions, and usage guidelines.
+Welcome to the Anonymous Application! This Laravel-based application is currently under development. Below is a detailed overview of the features implemented so far, setup instructions, and usage guidelines.
 
 ## Features Implemented So Far
 
@@ -26,12 +30,24 @@ The `MessageController` handles the following functionalities:
 
 The `FeedbackController` takes care of:
 
-- **Recording Feedback:** Feedback submitted through the contact page is recorded and managed.
+- **Recording Feedback:** Feedback submitted through the contact page is recorded and stored in the database.
+- **Feedback Notification:** Users receive a confirmation message via queue after their feedback is recorded.
+
+### Admin Functionality
+
+The application includes a robust admin system:
+
+- **Admin Routes & Controllers:** Admin-specific routes and controllers for managing the application.
+- **Permissions:** A permission system to control access to specific features and functionalities.
+
+### Blade Breeze Template
+
+A customized Blade Breeze template is implemented to enhance the frontend experience.
 
 ### Routes
 
 - **Public Routes:** Accessible without authentication.
-- **Protected Routes:** Accessible only to authenticated users, protected using middleware.
+- **Protected Routes:** Accessible only to authenticated users, secured with middleware.
 
 ## Getting Started
 
@@ -46,8 +62,8 @@ The `FeedbackController` takes care of:
 
 1. **Clone the repository:**
     ```sh
-    git clone https://github.com/yourusername/anonymous-application.git
-    cd anonymous-application
+    git clone https://github.com/artisticwrist/anonymous-app.git
+    cd anonymous-app
     ```
 
 2. **Install dependencies:**
@@ -105,6 +121,10 @@ Visit `http://localhost:8000` in your browser to access the application.
 ### Feedback Management
 
 - **Submit Feedback:** `POST /api/feedback`
+
+### Admin Management
+
+- **Access Admin Panel:** Admin routes and controls available for managing the application.
 
 ## Contributing
 
