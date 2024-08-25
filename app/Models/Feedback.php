@@ -10,6 +10,6 @@ class feedback extends Model
     use HasFactory;
     protected $fillable = [
         'email',
-        'message',
+        'feedback',
     ];
 }

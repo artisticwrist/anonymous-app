@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use app\Models\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +15,8 @@ class AuthController extends Controller
     public function register(Request $request){
         $fields = $request->validate([
             'full_name'=>'required|string',
-            'email'=>'required|string|unique:users,email',
-            'password'=>'required|string|confirmed'
+            'email'=>'bail|required|string|unique:users,email',
+            'password'=>'required|string|confirmed|min:6'
         ]);
 
         // Check if email already exists
@@ -76,8 +76,14 @@ class AuthController extends Controller
             'token' => $token
         ];
 
-
         return response()->json($response, 201);
-
     }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+    
+        return response()->json(['message' => 'Logged out']);
+    }
+
 }

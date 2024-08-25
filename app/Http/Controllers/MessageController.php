@@ -11,7 +11,7 @@ class MessageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function view_messages()
+    public function view_user_message()
     {
         return Message::all();
     }
@@ -34,7 +34,7 @@ class MessageController extends Controller
         ]);
 
 
-        if(!User::where('reciever_id', $fields['reciever_id'])->exists()){
+        if(!User::where('id', $fields['reciever_id'])->exists()){
             return response()->json([
                 'message' => 'User doesnt exist'
             ]);
