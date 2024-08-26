@@ -1,39 +1,73 @@
+<style>
+    .msg-list{
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .msg-list li{
+        width: 30%;
+        padding: 20px;
+        height: 140px;
+        border: 5px solid #111827;
+    }
+
+    @media only screen and (max-width:768px){  
+    .msg-list li{
+        width: 100%;
+        padding: 20px;
+        height: 140px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    ul button{
+        width: max-content;
+    }
+    }
+</style>
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+            Hello, {{ Auth::user()->name }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
-                    <!-- Display Success Message -->
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
 
                     <!-- Button to create a new message -->
                     <form action="{{ route('verify-refferal') }}" method="GET">
                         <input type="hidden" name="uid" value="{{ Auth::id() }}">
-                        <button type="submit">Create Message</button>
+                        <button type="submit">
+                            <x-primary-button>
+                                Create Message
+                            </x-primary-button>
+                        </button>
                     </form>
 
                     <!-- Display Error/Other Message -->
+                    <h1 class="mt-4 mb-4">Your Messages:</h1>
                     @if(session('message'))
                         <p>{{ session('message') }}</p>
                     @endif
                 
                     @if($messages->isNotEmpty())
-                        <h2>Your Messages:</h2>
-                        <ul>
+                        <ul class="msg-list">
                             @foreach($messages as $message)
-                                <li>
+                                <li class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                                     {{ $message->message }}
+                                    <br>
+                                    <button class="mt-6">
+                                        <x-primary-button>
+                                            View Message
+                                        </x-primary-button>
+                                    </button>
                                 </li>
                             @endforeach
                         </ul>

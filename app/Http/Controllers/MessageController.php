@@ -41,6 +41,8 @@ class MessageController extends Controller
             'receiver_id' => $fields['ruid'],
             'message' => $fields['message'],
         ]);
+
+        $success = 'message sent successfulyl';
     
         // Redirect to the dashboard with a success message
         return redirect()->route('dashboard')->with('success', 'Message sent successfully');
