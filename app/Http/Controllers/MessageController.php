@@ -25,7 +25,7 @@ class MessageController extends Controller
         $fields = $request->validate([
             'uid' => 'required|integer',
             'ruid' => 'required|integer',
-            'message' => 'required|string',
+            'message' => 'required|string|max:2000',
         ]);
     
         // Check if the receiver exists
@@ -42,10 +42,11 @@ class MessageController extends Controller
             'message' => $fields['message'],
         ]);
 
-        $success = 'message sent successfulyl';
     
         // Redirect to the dashboard with a success message
-        return redirect()->route('dashboard')->with('success', 'Message sent successfully');
+        $data = 'Message Delivered Successfully'; 
+
+        return redirect()->route('dashboard')->with('data', $data);
     }
     
 

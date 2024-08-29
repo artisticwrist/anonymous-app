@@ -9,7 +9,7 @@ use App\Models\Message;
 
 class UserController extends Controller
 {
-    public function view_user_message()
+    public function view_user_message(Request $request)
     {
         // Get the currently logged-in user
         $user = Auth::user();
@@ -21,11 +21,31 @@ class UserController extends Controller
             ]);
         }
         
-        // Retrieve messages for the user
-        $messages = $user->receivedMessages; // Use property access
+        $messages = $user->receivedMessages; 
+
+        $data = $request->query('data');
         
-        // Pass messages to the view
-        return view('dashboard', ['messages' => $messages]);
+        return view('dashboard', ['messages' => $messages, 'data' => $data]);
     }
-    
+
+
+
+
+    public function showFullMessage(Request $request)
+    {
+        $msgid = $request->query('msgid');
+        $data = Message::find($msgid); 
+
+        return view('message.view-full-message', compact('data'));
+
+    }
+
+
+    public function getMessageById(Request $request)
+    {
+        $msgid = $request->query('msgid');
+
+        return redirect()->route('showFullMessage', ['msgid' => $msgid]);
+    }
+
 }

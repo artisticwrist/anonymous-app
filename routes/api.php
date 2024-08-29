@@ -9,7 +9,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 
 // Publicly accessible routes
-Route::post('/feedback', [FeedbackController::class, 'sendFeedback'])->name('feedback.send');
+Route::post('/feedback-form', [FeedbackController::class, 'sendFeedback'])->name('feedback');
+Route::get('/msgid', [UserController::class, 'getMessageById'])->name('msgid');
 Route::get('/view_comments/{id}', [CommentController::class, 'viewComments'])->name('comment.view');
 Route::post('/create-message', [MessageController::class, 'create_message'])->name('create-message');
 

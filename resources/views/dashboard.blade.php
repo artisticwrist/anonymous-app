@@ -1,3 +1,8 @@
+@php
+    use Illuminate\Support\Str;
+@endphp
+
+
 <style>
     .msg-list{
         display: flex;
@@ -8,10 +13,16 @@
     .msg-list li{
         width: 30%;
         padding: 20px;
-        height: 140px;
-        border: 5px solid #111827;
+        height: 190px;
+        border: 2px solid #111827;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
+    ul button{
+        width: max-content;
+    }
     @media only screen and (max-width:768px){  
     .msg-list li{
         width: 100%;
@@ -22,9 +33,7 @@
         justify-content: center;
     }
 
-    ul button{
-        width: max-content;
-    }
+
     }
 </style>
 
@@ -39,18 +48,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-
-
+                
+                @if(isset($data))
+                    <p>Data: {{ $data }}</p>
+                @endif
+                
+                
                     <!-- Button to create a new message -->
                     <form action="{{ route('verify-refferal') }}" method="GET">
                         <input type="hidden" name="uid" value="{{ Auth::id() }}">
                         <button type="submit">
                             <x-primary-button>
-                                Create Message
+                                Send Message
                             </x-primary-button>
                         </button>
                     </form>
-
                     <!-- Display Error/Other Message -->
                     <h1 class="mt-4 mb-4">Your Messages:</h1>
                     @if(session('message'))
@@ -61,13 +73,18 @@
                         <ul class="msg-list">
                             @foreach($messages as $message)
                                 <li class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                                    {{ $message->message }}
+                                    {{ Str::limit($message->message, 100, '...') }}
                                     <br>
-                                    <button class="mt-6">
-                                        <x-primary-button>
-                                            View Message
-                                        </x-primary-button>
-                                    </button>
+                                    <!-- Button to create a new message -->
+                                    <form action="{{ url('/api/msgid') }}" method="GET">
+                                        <input type="hidden" name="msgid" value="{{ $message->id }}">
+                                        <button class="mt-6" type="submit">
+                                            <x-primary-button>
+                                                View Message
+                                            </x-primary-button>
+                                        </button>
+                                    </form>
+
                                 </li>
                             @endforeach
                         </ul>
