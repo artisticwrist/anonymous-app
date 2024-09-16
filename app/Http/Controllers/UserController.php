@@ -23,13 +23,11 @@ class UserController extends Controller
         
         $messages = $user->receivedMessages; 
 
-        $data = $request->query('data');
+        $data = $request->get('data');
         
-        return view('dashboard', ['messages' => $messages, 'data' => $data]);
+        return view('dashboard', compact('messages', 'data'));
+
     }
-
-
-
 
     public function showFullMessage(Request $request)
     {
@@ -46,6 +44,11 @@ class UserController extends Controller
         $msgid = $request->query('msgid');
 
         return redirect()->route('showFullMessage', ['msgid' => $msgid]);
+    }
+
+    public function viewForm(Request $request){
+        $data = $request->query('data');
+        return view('message.send-message-form', compact('data'));
     }
 
 }

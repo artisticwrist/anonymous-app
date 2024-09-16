@@ -28,11 +28,15 @@
                         Screenshot
                     </x-primary-button>
                 </button>
-                <button type="submit" class="ml-4">
-                    <x-primary-button class="">
-                        Delete
-                    </x-primary-button>
-                </button>
+                <form method="GET" action="{{ url('/api/message') }}">
+                    @csrf
+                    <button type="submit" class="ml-4">
+                        <x-primary-button class="">
+                            Delete
+                        </x-primary-button>
+                    </button>
+                </form>
+
             </div>
             @else
                 <p>No message found.</p>

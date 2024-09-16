@@ -46,6 +46,7 @@
         <form method="POST" class=" form-refferal bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg" action="{{ url('/api/create-message') }}">
             @csrf
 
+
             <label for="referral_code">Create Message</label>
             <textarea type="text" id="message" name="message" required name="" id="" cols="30" rows="10"></textarea>
 

@@ -12,11 +12,6 @@ class FeedbackController extends Controller
 {
 
     public function feedback(Request $request){
-
-        // $data = session('data');
-
-        // return view('feedback', compact($data));
-
         $data = $request->get('data');
         return view('feedback', compact('data'));
     }

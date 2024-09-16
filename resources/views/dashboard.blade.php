@@ -49,10 +49,9 @@
             <div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                 
-                @if(isset($data))
-                    <p>Data: {{ $data }}</p>
-                @endif
-                
+                    @if(isset($data))
+                        <p>{{ $data }}</p>
+                    @endif    
                 
                     <!-- Button to create a new message -->
                     <form action="{{ route('verify-refferal') }}" method="GET">

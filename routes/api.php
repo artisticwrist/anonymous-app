@@ -13,11 +13,12 @@ Route::post('/feedback-form', [FeedbackController::class, 'sendFeedback'])->name
 Route::get('/msgid', [UserController::class, 'getMessageById'])->name('msgid');
 Route::get('/view_comments/{id}', [CommentController::class, 'viewComments'])->name('comment.view');
 Route::post('/create-message', [MessageController::class, 'create_message'])->name('create-message');
+Route::delete('/messages/{id}', [MessageController::class, 'delete_message'])->name('messages.delete');
 
 // Protected Routes (requires auth via Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/messages', [UserController::class, 'view_user_message'])->name('api.user.messages');
-    Route::delete('/messages/{id}', [MessageController::class, 'delete_message'])->name('messages.delete');
+
     
     // Comment routes
     Route::post('/post_comment', [CommentController::class, 'postComment'])->name('comment.post');
